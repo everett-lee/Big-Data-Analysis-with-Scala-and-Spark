@@ -1,0 +1,3 @@
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/lee/projects/scala/Big-Data-Analysis-with-Scala-and-Spark/stackoverflow/src/main/resources/stackoverflow,/home/lee/projects/scala/Big-Data-Analysis-with-Scala-and-Spark/stackoverflow/target/scala-2.12/classes/stackoverflow)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/lee/projects/scala/Big-Data-Analysis-with-Scala-and-Spark/stackoverflow/src/main/resources/stackoverflow/stackoverflow.csv,/home/lee/projects/scala/Big-Data-Analysis-with-Scala-and-Spark/stackoverflow/target/scala-2.12/classes/stackoverflow/stackoverflow.csv)[0m

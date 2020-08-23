@@ -21,10 +21,10 @@ object StackOverflow extends StackOverflow {
     val lines = sc.textFile("src/main/resources/stackoverflow/stackoverflow.csv")
     val raw = rawPostings(lines)
     val grouped = groupedPostings(raw)
-    val scored = scoredPostings(grouped).sample(true, 0.1, 0)
-//    assert(scored.count() == 2121822, "Incorrect number of vectors: " + scored.count())
+    val scored = scoredPostings(grouped)
+    assert(scored.count() == 2121822, "Incorrect number of vectors: " + scored.count())
     val vectors = vectorPostings(scored)
-//    assert(vectors.count() == 2121822, "Incorrect number of vectors: " + vectors.count())
+    assert(vectors.count() == 2121822, "Incorrect number of vectors: " + vectors.count())
 
     val means = kmeans(sampleVectors(vectors), vectors, debug = true)
     val results = clusterResults(means, vectors)
@@ -331,8 +331,13 @@ class StackOverflow extends StackOverflowInterface with Serializable {
 
     def getMedian(x: Iterable[(LangIndex, HighScore)]): Int = {
       val scores = x.map(pair => pair._2).toVector.sorted
-      val n = x.size / 2
-      scores(n)
+
+      val mid = scores.length / 2
+      if (scores.length % 2 == 0) {
+        (scores(mid) + scores(mid-1)) / 2
+      } else {
+        scores(mid)
+      }
     }
 
     val median = closestGrouped.mapValues { vs =>
