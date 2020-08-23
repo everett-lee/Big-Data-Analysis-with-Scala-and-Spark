@@ -1,6 +1,6 @@
 package stackoverflow
 
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.{RangePartitioner, SparkConf, SparkContext}
 import org.apache.spark.rdd.RDD
 
 import scala.annotation.tailrec
@@ -130,12 +130,17 @@ class StackOverflow extends StackOverflowInterface with Serializable {
       }
     }
 
-    scored.map(pair => {
+
+    val scorePair = scored.map(pair => {
       val (q, highScore) = pair
       val x = firstLangInTag(q.tags, langs).getOrElse(0) * langSpread
       val y = highScore
       (x, y)
     })
+
+
+    val partitioner = new RangePartitioner(langs.length, scorePair)
+    scorePair.partitionBy(partitioner) cache()
   }
 
 
